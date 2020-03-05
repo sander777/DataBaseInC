@@ -5,6 +5,7 @@
 //--TODO: Search by matching prototype
 //--TODO: Delete author by id (or visibility of this)
 //--??TODO: All fo Book struct
+//TODO:Change print_~~~~(FILE*) functions to be dependent on index file not bin
 //TODO: Menu
 
 
@@ -333,12 +334,17 @@ void print_all_book(FILE* f) {
 }
 
 int main() {
-	while (1)
-	{
+	FILE* book_index = fopen("book_index.txt", "a+");
+	while (1) {
 		system("cls");
 		int answer;
 		printf("\t\t\tLibrary DataBase\n1)Book table\n2)Author table\n");
 		scanf("%i", answer);
+		if(answer == 1) {
+			system("cls");
+			printf("\t\t\tBookTable\n1)Add\n2)Delete\n");
+			print_all_book(book_index);
+		}
 	}
 	
 }
