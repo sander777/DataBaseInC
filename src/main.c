@@ -202,7 +202,7 @@ void print_all_author(FILE* f) {
 
 struct Book {
 	char title[name_length];
-	int authorID;
+	char authorID[11];
 };
 
 void edit_book(struct Book* b) {
@@ -282,7 +282,7 @@ struct Book get_book_by_id(int id, FILE* index, FILE* bin) {
 		//TODO: warning when no ID in DataBase
 		struct Book b;
 		result = &b;
-		read_data_author(&b, bin, addr);
+		read_data_book(&b, bin, addr);
 	}
 	else {
 		printf("list is empty");
@@ -298,7 +298,7 @@ int* get_book_id_list_by_prototype(struct Book prototype, int* _sz, FILE* f) {
 	*_sz = 0;
 	struct Book b;
 	for(int i = 0; i < sz / sizeof(struct Book); i++) {
-		read_data_author(&b, f, i);
+		read_data_book(&b, f, i);
 		if((strcmp(prototype.title, "!") == 0) ^ (strcmp(b.title, prototype.title) == 0) &&
 		   (strcmp(prototype.authorID, "!") == 0) ^ (strcmp(b.authorID, prototype.authorID) == 0)) {
 			   (*_sz)++;
@@ -308,7 +308,7 @@ int* get_book_id_list_by_prototype(struct Book prototype, int* _sz, FILE* f) {
 	int* arr = (int*) malloc(*_sz);
 	int j = 0;
 	for(int i = 0; i < sz / sizeof(struct Book); i++) {
-		read_data_author(&b, f, i);
+		read_data_book(&b, f, i);
 		if((strcmp(prototype.title, "!") == 0) ^ (strcmp(b.title, prototype.title) == 0) &&
 		   (strcmp(prototype.authorID, "!") == 0) ^ (strcmp(b.authorID, prototype.authorID) == 0)) {
 			   arr[j] = 1000000000 + i;
@@ -333,5 +333,12 @@ void print_all_book(FILE* f) {
 }
 
 int main() {
+	while (1)
+	{
+		system("cls");
+		int answer;
+		printf("\t\t\tLibrary DataBase\n1)Book table\n2)Author table\n");
+		scanf("%i", answer);
+	}
 	
 }
