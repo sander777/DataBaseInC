@@ -12,10 +12,8 @@ typedef unsigned int uint;
 struct Table {
 	char _indexFile[FILE_LEN];
 	char _dataFile[FILE_LEN];
-	FILE* _indexFile_read;
-	FILE* _indexFile_write;
-	FILE* _dataFile_read;
-	FILE* _dataFile_write;
+	FILE* _indexFile_stream;
+	FILE* _dataFile_stream;
 	uint _size;
 };
 
