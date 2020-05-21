@@ -39,7 +39,7 @@ void edit_book(struct Book* b) {
 }
 
 void print_book(struct Book b) {
-	printf("%s\n%i\n\n", b.title, b.author_id);
+	printf("Title: %s\nAuthor Id: %i\n\n", b.title, b.author_id);
 }
 
 #endif

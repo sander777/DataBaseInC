@@ -10,8 +10,12 @@ struct Table *new_Table(char indexFile[FILE_LEN], char dataFile[FILE_LEN],
     struct Table *result = malloc(sizeof(struct Table));
     strcpy((*result)._indexFile, indexFile);
     strcpy((*result)._dataFile, dataFile);
-    (*result)._dataFile_stream = fopen(dataFile, "a+");
-    (*result)._indexFile_stream = fopen(indexFile, "a+");
+    FILE* temp = fopen(dataFile, "a");
+    fclose(temp);
+    temp = fopen(indexFile, "a");
+    fclose(temp);
+    (*result)._dataFile_stream = fopen(dataFile, "r+");
+    (*result)._indexFile_stream = fopen(indexFile, "r+");
     (*result)._size = size;
 
     return result;
@@ -63,9 +67,7 @@ void write_index(struct Table *self, int index, int pos) {
     char *ptr = &index;
     fseek((*self)._indexFile_stream, sizeof(int) * pos, SEEK_SET);
     for (uint i = 0; i < sizeof(int); i++) {
-        fseek((*self)._indexFile_stream, 0, SEEK_CUR);
         fputc((int)(*(ptr++)), (*self)._indexFile_stream);
-        fflush((*self)._indexFile_stream);
     }
 }
 
