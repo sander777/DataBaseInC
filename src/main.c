@@ -4,6 +4,7 @@
 //#define DEBUG
 
 int main() {
+
     struct Table *book_table =
         new_Table("book_index.txt", "book_table.txt", sizeof(struct Book));
     struct Table *author_table = new_Table(
@@ -18,7 +19,7 @@ int main() {
             break;
         if (asnwer == 1) {
             while (1) {
-                system("cls");
+                system("cls"); //
                 printf("Book Table\n");
                 int size;
                 int *list = get_id_list(book_table, &size);
@@ -29,15 +30,38 @@ int main() {
                     printf("\n********************\n");
                 }
 
-                printf("\n1) Add\n2) "
-                       "Delete\n0-Exit\n> ");
+                printf("\n1) Add\n2) Edit\n3) Delete\n0-Exit\n> ");
                 int book_asnwer;
                 scanf("%i", &book_asnwer);
                 if (book_asnwer == 1) {
+                while (1)
+                {
+                
                     struct Book add;
                     edit_book(&add);
-                    add_row(book_table, &add);
+                    int exist = 0;
+                    int size;
+                    int *list = get_id_list(author_table, &size);
+                    for (int i = 0; i < size; i++) {
+                        if (list[i] == add.author_id) {
+                            exist = 1;
+                        }
+                    }
+                    if (exist) {
+                        add_row(book_table, &add);
+                        break;
+                    } else {
+                        printf("\nThere no such author\n");
+                    }
+                }
                 } else if (book_asnwer == 2) {
+                    printf("\nInput Id to edit: ");
+                    int edit_id;
+                    scanf("%i", &edit_id);
+                    struct Book add;
+                    edit_book(&add);
+                    write_data(book_table, &add, edit_id);
+                } else if (book_asnwer == 3) {
                     printf("\nInput Id to delete: ");
                     int delete_id;
                     scanf("%i", &delete_id);
@@ -75,6 +99,14 @@ int main() {
                     printf("\nInput Id to delete: ");
                     int delete_id;
                     scanf("%i", &delete_id);
+                    int size;
+                    int *list = get_id_list(book_table, &size);
+                    for (int i = 0; i < size; i++) {
+                        struct Book *temp = read_data(book_table, list[i]);
+                        if ((*temp).author_id == delete_id) {
+                            delete_by_id(book_table, i);
+                        }
+                    }
                     delete_by_id(author_table, delete_id);
                 } else {
                     break;

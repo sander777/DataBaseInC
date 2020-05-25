@@ -11,11 +11,14 @@ struct Author {
 	char name[name_length];
 	char birthday[date_length];
 	char country[name_length];
+	char surname[name_length];
 };
 
 void edit_author(struct Author* a) {
 	printf("Input Autrhot Name: ");
 	scanf("%s", (*a).name);
+	printf("Input Autrhot Surame: ");
+	scanf("%s", (*a).surname);
 	printf("Input Autrhot Birhday: ");
 	scanf("%s", (*a).birthday);
 	printf("Input Autrhot Country: ");
@@ -33,7 +36,7 @@ struct Book {
 
 void edit_book(struct Book* b) {
 	printf("Input Title: ");
-	scanf("%s", &((*b).title));
+	scanf("%s", (*b).title);
 	printf("Input Autrhot Id: ");
 	scanf("%i", &((*b).author_id));
 }

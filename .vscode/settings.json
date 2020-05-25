@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "xlocale": "c",
-        "xlocnum": "c"
+        "xlocnum": "c",
+        "system_error": "cpp",
+        "cstdio": "cpp"
     }
 }
